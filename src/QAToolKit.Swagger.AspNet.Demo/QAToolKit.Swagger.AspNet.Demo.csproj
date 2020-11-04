@@ -7,7 +7,7 @@
 		<DockerfileContext>..\..</DockerfileContext>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<PropertyGroup>
 	  <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\QAToolKit.Swagger.AspNet.Demo.xml</DocumentationFile>
 	</PropertyGroup>
 
