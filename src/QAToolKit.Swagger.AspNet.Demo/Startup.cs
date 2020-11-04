@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using QAToolKit.Swagger.AspNet.Demo.Extensions;
 using QAToolKit.Swagger.AspNet.Demo.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
+using System.IO;
 using System.Linq;
 
 namespace QAToolKit.Swagger.AspNet.Demo
@@ -46,8 +48,10 @@ namespace QAToolKit.Swagger.AspNet.Demo
 
             services.AddSwaggerGen(options =>
             {
+                options.OperationFilter<ApiVersionOperationFilter>();
                 options.EnableAnnotations();
                 options.DescribeAllEnumsAsStrings();
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"QAToolKit.Swagger.AspNet.Demo.xml"));
             });
 
             services.AddSingleton<IConfigureOptions<SwaggerGenOptions>>(provider =>
