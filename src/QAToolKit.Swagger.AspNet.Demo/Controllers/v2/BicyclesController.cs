@@ -80,7 +80,7 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v2
         [ProducesResponseType(typeof(Bicycle), StatusCodes.Status201Created)]
         [SwaggerOperation(
             Summary = "Create new bike",
-            Description = "Add new bike. TEST TAGS -> [@integrationtest,@loadtest]",
+            Description = "Add new bike. TEST TAGS -> [@integrationtest,@loadtest,@apikey,@customer]",
             OperationId = "NewBike",
             Tags = new[] { "Public" }
         )]
@@ -127,7 +127,7 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v2
         [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
         [SwaggerOperation(
             Summary = "Delete a bike",
-            Description = "Delete a bike by id. TEST TAGS -> [@integrationtest,@loadtest,@apikey]",
+            Description = "Delete a bike by id. TEST TAGS -> [@integrationtest,@loadtest,@apikey,@administrator]",
             OperationId = "DeleteBike",
             Tags = new[] { "Public" }
         )]
