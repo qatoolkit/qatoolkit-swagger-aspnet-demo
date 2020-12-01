@@ -1,12 +1,9 @@
 ﻿using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Writers;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace QAToolKit.Swagger.AspNet.Demo.Extensions
 {
@@ -14,7 +11,7 @@ namespace QAToolKit.Swagger.AspNet.Demo.Extensions
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-           var apiVersion = operation.Parameters.FirstOrDefault(s => s.Name == "api-version");
+            var apiVersion = operation.Parameters.FirstOrDefault(s => s.Name == "api-version");
 
             if (apiVersion != null)
             {

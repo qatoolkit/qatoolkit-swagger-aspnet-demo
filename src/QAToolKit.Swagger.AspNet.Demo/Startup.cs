@@ -13,6 +13,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace QAToolKit.Swagger.AspNet.Demo
 {
@@ -61,6 +63,8 @@ namespace QAToolKit.Swagger.AspNet.Demo
             );
 
             services.AddSingleton<BikeService>();
+
+            services.AddScoped<ApiKeyAuthorizationFilterAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +80,7 @@ namespace QAToolKit.Swagger.AspNet.Demo
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
