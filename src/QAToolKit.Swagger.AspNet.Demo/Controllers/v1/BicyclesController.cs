@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using QAToolKit.Swagger.AspNet.Demo.Extensions;
 using QAToolKit.Swagger.AspNet.Demo.Models;
 using QAToolKit.Swagger.AspNet.Demo.Services;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,11 +29,16 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v1
             _bikeService = bikeService;
         }
 
+        /// <summary>
+        /// Get All Bikes
+        /// </summary>
+        /// <param name="bicycleType">Nullable BikeType enum</param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(List<Bicycle>), StatusCodes.Status200OK)]
         [SwaggerOperation(
             Summary = "Get all bikes by filter",
-            Description = "Get all bikes",
+            Description = "Get all bikes. TEST TAGS -> [@integrationtest,@loadtest]",
             OperationId = "GetAllBikes",
             Tags = new[] { "Public" }
         )]
@@ -43,11 +49,16 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v1
             return Ok(bikes);
         }
 
+        /// <summary>
+        /// Get a bike
+        /// </summary>
+        /// <param name="id">Bicycle Id</param>
+        /// <returns></returns>
         [HttpGet("{id}", Name = "GetBike")]
         [ProducesResponseType(typeof(Bicycle), StatusCodes.Status200OK)]
         [SwaggerOperation(
             Summary = "Get bike by id",
-            Description = "Get bicycle by id",
+            Description = "Get bicycle by id. TEST TAGS -> [@integrationtest,@loadtest]",
             OperationId = "GetBike",
             Tags = new[] { "Public" }
         )]
@@ -59,45 +70,70 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v1
         }
 
 
+        /// <summary>
+        /// Create new bicycle
+        /// </summary>
+        /// <param name="bicycle">Bicycle object to create</param>
+        /// <param name="apiKey">ApiKey to access the endpoint</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(Bicycle), StatusCodes.Status201Created)]
         [SwaggerOperation(
             Summary = "Create new bike",
-            Description = "Add new bike",
+            Description = "Add new bike. TEST TAGS -> [@integrationtest,@loadtest]",
             OperationId = "NewBike",
             Tags = new[] { "Public" }
         )]
-        public async Task<IActionResult> NewBike([FromBody] Bicycle bicycle)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ServiceFilter(typeof(ApiKeyAuthorizationFilterAttribute))]
+        public async Task<IActionResult> NewBike([FromBody] Bicycle bicycle, string apiKey)
         {
             var bike = _bikeService.CreateNew(bicycle);
 
             return Created(new Uri(Url.Link(nameof(GetBike), new { id = bike.Id })), bike);
         }
 
+        /// <summary>
+        /// Update a bicycle
+        /// </summary>
+        /// <param name="id">Bicycle id</param>
+        /// <param name="bicycle">Bicycle object to update</param>
+        /// <param name="apiKey">ApiKey to access the endpoint</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Bicycle), StatusCodes.Status200OK)]
         [SwaggerOperation(
             Summary = "Update a bike",
-            Description = "Update a bike",
+            Description = "Update a bike. TEST TAGS -> [@integrationtest,@loadtest,@apikey]",
             OperationId = "UpdateBike",
             Tags = new[] { "Public" }
         )]
-        public async Task<IActionResult> UpdateBike(int id, [FromBody] Bicycle bicycle)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ServiceFilter(typeof(ApiKeyAuthorizationFilterAttribute))]
+        public async Task<IActionResult> UpdateBike(int id, [FromBody] Bicycle bicycle, string apiKey)
         {
             var bike = _bikeService.Update(id, bicycle);
 
             return Ok(bike);
         }
 
+        /// <summary>
+        /// Delete a bicycle
+        /// </summary>
+        /// <param name="id">Bicycle Id</param>
+        /// <param name="apiKey">ApiKey to access the endpoint</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
         [SwaggerOperation(
             Summary = "Delete a bike",
-            Description = "Delete a bike by id",
+            Description = "Delete a bike by id. TEST TAGS -> [@integrationtest,@loadtest,@apikey]",
             OperationId = "DeleteBike",
             Tags = new[] { "Public" }
         )]
-        public async Task<IActionResult> DeleteBike(int id)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ServiceFilter(typeof(ApiKeyAuthorizationFilterAttribute))]
+        public async Task<IActionResult> DeleteBike(int id, string apiKey)
         {
             _bikeService.Delete(id);
 

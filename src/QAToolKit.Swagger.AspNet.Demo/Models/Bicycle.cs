@@ -20,7 +20,7 @@
         /// <summary>
         /// Bicycle type
         /// </summary>
-        /// <example>1</example>
+        /// <example>0</example>
         public BicycleType Type { get; set; }
     }
 }

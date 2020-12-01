@@ -13,6 +13,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace QAToolKit.Swagger.AspNet.Demo
 {
@@ -28,7 +30,12 @@ namespace QAToolKit.Swagger.AspNet.Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            });
 
             services.AddApiVersioning(
                o =>
@@ -61,6 +68,8 @@ namespace QAToolKit.Swagger.AspNet.Demo
             );
 
             services.AddSingleton<BikeService>();
+
+            services.AddScoped<ApiKeyAuthorizationFilterAttribute>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
