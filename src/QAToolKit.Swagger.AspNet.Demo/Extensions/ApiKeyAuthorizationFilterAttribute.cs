@@ -19,7 +19,7 @@ namespace QAToolKit.Swagger.AspNet.Demo.Extensions
         {
             var apiKeys = new List<string>
             {
-                context.HttpContext.Request?.Query["ApiKey"].ToString()
+                context.HttpContext.Request?.Query["apiKey"].ToString()
             };
 
             //validate Api Key
