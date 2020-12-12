@@ -100,6 +100,29 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v2
         }
 
         /// <summary>
+        /// Create new simple bike
+        /// </summary>
+        /// <param name="bicycle">Bicycle string to create</param>
+        /// <param name="apiKey">ApiKey to access the endpoint</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(Bicycle), StatusCodes.Status200OK)]
+        [SwaggerOperation(
+            Summary = "Create new simple bike",
+            Description = "Add new simple bike. Creates from string TEST TAGS -> [@integrationtest,@loadtest,@apikey,@customer]",
+            OperationId = "NewSimpleBike",
+            Tags = new[] { "Public" }
+        )]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ServiceFilter(typeof(ApiKeyAuthorizationFilterAttribute))]
+        [Consumes("text/plain")]
+        [Produces("text/plain")]
+        public async Task<IActionResult> NewSimpleBike(string bicycle, [FromQuery] string apiKey)
+        {
+            return Ok($"Simple bike {bicycle} created.");
+        }
+
+        /// <summary>
         /// Update a bicycle
         /// </summary>
         /// <param name="id">Bicycle id</param>
@@ -165,6 +188,7 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v2
             Tags = new[] { "Public" }
         )]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("text/plain")]
         public async Task<IActionResult> BicycleImageUpload(int id, [FromForm] BicycleImage image)
         {
             if (image.FileContent == null || image.FileContent.Length == 0 || image.FileContent.Length > 3 * 1024 * 1024)
@@ -195,6 +219,7 @@ namespace QAToolKit.Swagger.AspNet.Demo.Controllers.v2
             Tags = new[] { "Public" }
         )]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("text/plain")]
         public async Task<IActionResult> BicycleBrochureUpload(int id, [FromForm] BicycleBrochure brochure)
         {
             if (brochure.Image.FileContent == null || brochure.Image.FileContent.Length == 0 || brochure.Image.FileContent.Length > 3 * 1024 * 1024)
