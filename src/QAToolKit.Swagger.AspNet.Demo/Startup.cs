@@ -52,7 +52,6 @@ namespace QAToolKit.Swagger.AspNet.Demo
             {
                 options.OperationFilter<ApiVersionOperationFilter>();
                 options.EnableAnnotations();
-                options.DescribeAllEnumsAsStrings();
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"QAToolKit.Swagger.AspNet.Demo.xml"));
             });
 
