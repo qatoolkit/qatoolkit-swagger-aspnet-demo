@@ -1,9 +1,9 @@
 using ExpectedObjects;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using QAToolKit.Engine.HttpTester;
 using QAToolKit.Engine.HttpTester.Extensions;
 using QAToolKit.xUnit.Fixtures;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -28,7 +28,7 @@ namespace QAToolKit.xUnit
         }
 
         [Fact]
-        public async Task HttpTesterClientSimpleGetAllBikes_Success()
+        public async Task GetAllBikes_Success()
         {
             using (var client = new HttpTesterClient())
             {
@@ -41,16 +41,18 @@ namespace QAToolKit.xUnit
 
                 var msg = await response.GetResponseBody<List<Bicycle>>();
 
+                _logger.LogInformation(JsonConvert.SerializeObject(msg, Formatting.Indented));
+
                 var expecterResponse = BicycleFixture.GetBicycles().ToExpectedObject();
                 expecterResponse.ShouldEqual(msg);
 
-                Assert.True(client.Duration < 2000);
+                //Assert.True(client.Duration < 2000);
                 Assert.True(response.IsSuccessStatusCode);
             }
         }
 
         [Fact]
-        public async Task HttpTesterClientSimpleGetOneBike_Success()
+        public async Task GetOneBike_Success()
         {
             using (var client = new HttpTesterClient())
             {
@@ -66,14 +68,13 @@ namespace QAToolKit.xUnit
                 var expecterResponse = BicycleFixture.GetFoil().ToExpectedObject();
                 expecterResponse.ShouldEqual(msg);
 
-                Assert.True(client.Duration < 2000);
                 Assert.True(response.IsSuccessStatusCode);
                 Assert.Equal("Scott", msg.Brand);
             }
         }
 
         [Fact]
-        public async Task HttpTesterClientWithoutHeaders_Success()
+        public async Task GetBikesWithoutHeaders_Success()
         {
             using (var client = new HttpTesterClient())
             {
@@ -90,14 +91,13 @@ namespace QAToolKit.xUnit
                 var expecterResponse = BicycleFixture.GetCfr().ToExpectedObject();
                 expecterResponse.ShouldEqual(msg);
 
-                Assert.True(client.Duration < 2000);
                 Assert.True(response.IsSuccessStatusCode);
                 Assert.Equal("Giant", msg.Brand);
             }
         }
 
         [Fact]
-        public async Task HttpTesterClientWithoutQueryParams_BadRequest()
+        public async Task GetBikesWithoutQueryParams_BadRequest()
         {
             using (var client = new HttpTesterClient())
             {
@@ -109,13 +109,12 @@ namespace QAToolKit.xUnit
                  .WithPath("/api/bicycles")
                  .Start();
 
-                Assert.True(client.Duration < 2000);
                 Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             }
         }
 
         [Fact]
-        public async Task HttpTesterClientWithoutPath_NotFound()
+        public async Task PostNewBikeWithoutPath_NotFound()
         {
             using (var client = new HttpTesterClient())
             {
@@ -127,8 +126,44 @@ namespace QAToolKit.xUnit
                  .WithJsonBody(BicycleFixture.Get())
                  .Start();
 
-                Assert.True(client.Duration < 2000);
                 Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            }
+        }
+
+        [Fact]
+        public async Task PostNewBike_Unauthorized()
+        {
+            using (var client = new HttpTesterClient())
+            {
+                var response = await client
+                 .CreateHttpRequest(_testSetup.ApiUrl)
+                 .WithPath("/api/bicycles")
+                 .WithHeaders(new Dictionary<string, string>() { { "Content-Type", "application/json" } })
+                 .WithQueryParams(new Dictionary<string, string>() { { "api-version", "2" } })
+                 .WithMethod(HttpMethod.Post)
+                 .WithJsonBody(BicycleFixture.Get())
+                 .Start();
+
+                Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+            }
+        }
+
+        [Fact]
+        public async Task PostNewBike_Success()
+        {
+            using (var client = new HttpTesterClient())
+            {
+                var response = await client
+                 .CreateHttpRequest(_testSetup.ApiUrl)
+                 .WithPath("/api/bicycles")
+                 .WithHeaders(new Dictionary<string, string>() {
+                     { "Content-Type", "application/json" } })
+                 .WithQueryParams(new Dictionary<string, string>() { { "api-version", "2" }, { "apiKey", "12345" } })
+                 .WithMethod(HttpMethod.Post)
+                 .WithJsonBody(BicycleFixture.Get())
+                 .Start();
+
+                Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             }
         }
     }

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.WebApi", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.ServiceTests", "src\QAToolKit.xUnit\QAToolKit.Demo.ServiceTests.csproj", "{7EE7D8F0-F9C1-464D-96A1-E5F704C5BFC4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.DbTests", "QAToolKit.Demo.DbTests\QAToolKit.Demo.DbTests.csproj", "{394A6013-B4BC-4D1F-9914-8F412ABEC74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.DbTests", "src\QAToolKit.Demo.DbTests\QAToolKit.Demo.DbTests.csproj", "{394A6013-B4BC-4D1F-9914-8F412ABEC74E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
