@@ -50,8 +50,7 @@ namespace QAToolKit.Demo.DbTests
                 options.AddDatabaseObjectExitsRule(new string[]
                 {
                     "uspLogError",
-                    "uspPrintError",
-                    "xyz"
+                    "uspPrintError"
                 }, DatabaseObjectType.StoredProcedure);
 
                 options.AddDatabaseRecordsCountRule(new List<DatabaseRecordCountRule>() {
@@ -69,7 +68,7 @@ namespace QAToolKit.Demo.DbTests
                         ColumnName = "EmailAddress",
                         Operator = "=",
                         TableName = "SalesLT.Customer",
-                        Value = "greg1@adventure-works1.com"
+                        Value = "greg1@adventure-works.com"
                     }
                 });
             });
