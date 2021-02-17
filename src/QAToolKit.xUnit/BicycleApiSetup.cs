@@ -14,7 +14,8 @@ namespace QAToolKit.xUnit
 
         public BicycleApiSetup()
         {
-            HttpRequests = SwaggerParser.GetRequests("https://qatoolkitapi.azurewebsites.net/swagger/v2/swagger.json").ConfigureAwait(false).GetAwaiter().GetResult();
+            HttpRequests = SwaggerParser.GetRequests("https://qatoolkitapi.azurewebsites.net/swagger/v2/swagger.json")
+                .ConfigureAwait(false).GetAwaiter().GetResult();
         }
     }
 }

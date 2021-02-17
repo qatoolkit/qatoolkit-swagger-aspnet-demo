@@ -37,7 +37,8 @@ namespace QAToolKit.Demo.DbTests
                     "Address",
                     "CustomerAddress",
                     "SalesOrderDetail",
-                    "SalesOrderHeader"
+                    "SalesOrderHeader",
+                    "Blbla"
                 }, DatabaseObjectType.Table);
 
                 options.AddDatabaseObjectExitsRule(new string[]
@@ -71,12 +72,6 @@ namespace QAToolKit.Demo.DbTests
                         Value = "greg1@adventure-works.com"
                     }
                 });
-
-                options.AddCustomSqlRule(new List<string>() {
-                "SELECT * FROM SalesLT.Customer WHERE EmailAddress = 'greg1@adventure-works.com' OR 1=1",
-                "SELECT * FROM SalesLT.Customer WHERE EmailAddress = 'greg1@adventure-works.com'; DROP TABLE SalesLT.Customer",
-                "SELECT * FROM Users WHERE Name =\"' + uName + '\" AND Pass =\"' + uPass + '\""
-                });
             });
 
             IEnumerable<DatabaseTest> scripts = await generator.Generate();
@@ -97,3 +92,37 @@ namespace QAToolKit.Demo.DbTests
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*options.AddCustomSqlRule(new List<string>() {
+    "SELECT * FROM SalesLT.Customer WHERE EmailAddress = 'greg1@adventure-works.com' OR 1=1",
+    "SELECT * FROM SalesLT.Customer WHERE EmailAddress = 'greg1@adventure-works.com'; DROP TABLE SalesLT.Customer",
+    "SELECT * FROM Users WHERE Name =\"' + uName + '\" AND Pass =\"' + uPass + '\""
+});*/
