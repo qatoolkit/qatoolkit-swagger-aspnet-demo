@@ -5,6 +5,7 @@ using QAToolKit.Engine.HttpTester;
 using QAToolKit.Engine.HttpTester.Extensions;
 using QAToolKit.xUnit.Fixtures;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -57,10 +58,13 @@ namespace QAToolKit.xUnit
             using (var client = new HttpTesterClient())
             {
                 var response = await client
-                 .CreateHttpRequest(_testSetup.ApiUrl)
+                 .CreateHttpRequest(_testSetup.HttpRequests.FirstOrDefault(x => x.OperationId == "GetBike"))
                  .WithQueryParams(new Dictionary<string, string>() { { "api-version", _testSetup.ApiVersion } })
-                 .WithMethod(HttpMethod.Get)
-                 .WithPath("/api/bicycles/1")
+                 .WithPathReplacementValues( new Dictionary<string, string>() {
+                     { "id", "1" }
+                 })
+                 //.WithMethod(HttpMethod.Get)
+                 //.WithPath("/api/bicycles/1")
                  .Start();
 
                 var msg = await response.GetResponseBody<Bicycle>();

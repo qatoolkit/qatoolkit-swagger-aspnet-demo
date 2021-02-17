@@ -62,7 +62,7 @@ namespace QAToolKit.Demo.DbTests
                     }
                 });
 
-                options.AddDatabaseRecordExitsRule(new List<DatabaseRecordExistRule>() { 
+                options.AddDatabaseRecordExitsRule(new List<DatabaseRecordExistRule>() {
                     new DatabaseRecordExistRule()
                     {
                         ColumnName = "EmailAddress",
@@ -70,6 +70,12 @@ namespace QAToolKit.Demo.DbTests
                         TableName = "SalesLT.Customer",
                         Value = "greg1@adventure-works.com"
                     }
+                });
+
+                options.AddCustomSqlRule(new List<string>() {
+                "SELECT * FROM SalesLT.Customer WHERE EmailAddress = 'greg1@adventure-works.com' OR 1=1",
+                "SELECT * FROM SalesLT.Customer WHERE EmailAddress = 'greg1@adventure-works.com'; DROP TABLE SalesLT.Customer",
+                "SELECT * FROM Users WHERE Name =\"' + uName + '\" AND Pass =\"' + uPass + '\""
                 });
             });
 
