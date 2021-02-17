@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.WebApi", "src\QAToolKit.Swagger.AspNet.Demo\QAToolKit.Demo.WebApi.csproj", "{63B9AE0C-DA3E-40C9-B342-246E19806DBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.ServiceTests", "src\QAToolKit.xUnit\QAToolKit.Demo.ServiceTests.csproj", "{7EE7D8F0-F9C1-464D-96A1-E5F704C5BFC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo1.ServiceTests", "src\QAToolKit.xUnit\QAToolKit.Demo1.ServiceTests.csproj", "{7EE7D8F0-F9C1-464D-96A1-E5F704C5BFC4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo.DbTests", "src\QAToolKit.Demo.DbTests\QAToolKit.Demo.DbTests.csproj", "{394A6013-B4BC-4D1F-9914-8F412ABEC74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QAToolKit.Demo2.DbTests", "src\QAToolKit.Demo.DbTests\QAToolKit.Demo2.DbTests.csproj", "{394A6013-B4BC-4D1F-9914-8F412ABEC74E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
