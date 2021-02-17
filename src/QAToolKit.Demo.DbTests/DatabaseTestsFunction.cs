@@ -38,7 +38,7 @@ namespace QAToolKit.Demo.DbTests
                     "CustomerAddress",
                     "SalesOrderDetail",
                     "SalesOrderHeader",
-                    "Blbla"
+                    "Blbl"
                 }, DatabaseObjectType.Table);
 
                 options.AddDatabaseObjectExitsRule(new string[]
