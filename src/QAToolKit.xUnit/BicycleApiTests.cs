@@ -63,8 +63,6 @@ namespace QAToolKit.xUnit
                  .WithPathReplacementValues( new Dictionary<string, string>() {
                      { "id", "1" }
                  })
-                 //.WithMethod(HttpMethod.Get)
-                 //.WithPath("/api/bicycles/1")
                  .Start();
 
                 var msg = await response.GetResponseBody<Bicycle>();

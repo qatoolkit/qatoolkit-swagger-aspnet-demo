@@ -8,6 +8,7 @@ namespace QAToolKit.Demo.ServiceTests
     {
         public static async Task<string> GetAuthenticator()
         {
+
            var azureB2CAuthenticator = new AzureB2CAuthenticator(options =>
             {
                 options.AddClientCredentialFlowParameters(
